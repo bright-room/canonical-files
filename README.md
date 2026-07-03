@@ -52,6 +52,7 @@ canonical-files/
 - `.claude/` の丸ごと ignore — `.claude/rules/` `.claude/skills/` `.claude/settings.json` を意図的にコミットするリポが複数ある。個人ローカル分（`settings.local.json` 等）のみ base で ignore する。
 - `Cargo.lock` / `.terraform.lock.hcl` — 全リポでコミット運用（terraform は CI が `-lockfile=readonly` 前提）。
 - `mise.toml` / `.tool-versions` を捕捉するパターン — ツールバージョンのピン留めとしてコミット運用。
+- `.envrc` — コミット運用のリポがある（direnv 設定は共有物になりうる）。機密の防波堤は `.env` 系で足りる。
 - 汎用 `*.local` — chezmoi の命名規約（dotfiles）と衝突する。env 系は `.env.local` / `.env.*.local` の具体パターンに留める。
 - kotlin への `.editorconfig` 配布 — 各リポが ktlint ルールをリポ固有に持つため replace で壊れる。
 
