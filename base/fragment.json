@@ -9,8 +9,6 @@
       "ignores": [
         ".claude/settings.local.json",
         ".claude/worktrees/",
-        ".claude/inputs/",
-        ".claude/outputs/",
         "CLAUDE.local.md"
       ]
     }
