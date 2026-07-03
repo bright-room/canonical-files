@@ -1,0 +1,18 @@
+{
+  "_comment": "base = 全リポに常時適用される言語非依存の単位。renovate は管理する extends エントリ（preset 本体は bright-room/renovate-config）、gitignore は managed-block に入るセクション群。mise.toml / .tool-versions / .mise* は各リポで意図的にコミット運用のため ignore しない。.claude/ は settings.local.json 等の個人ローカル分のみ（rules/skills/settings.json をコミットするリポがある）。",
+  "renovate": ["github>bright-room/renovate-config"],
+  "gitignore": [
+    { "section_comment": "OS / editor", "ignores": [".DS_Store", "Thumbs.db", ".idea/", ".vscode/"] },
+    { "section_comment": "env", "ignores": [".env", ".env.local", ".env.*.local", ".envrc"] },
+    {
+      "section_comment": "AI agents",
+      "ignores": [
+        ".claude/settings.local.json",
+        ".claude/worktrees/",
+        ".claude/inputs/",
+        ".claude/outputs/",
+        "CLAUDE.local.md"
+      ]
+    }
+  ]
+}
