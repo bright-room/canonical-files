@@ -1,0 +1,10 @@
+# OS / editor
+.DS_Store
+.idea/
+
+# AI agents
+.claude/settings.local.json
+.claude/worktrees/
+
+# ローカル作業ファイル
+.repository-list.txt
