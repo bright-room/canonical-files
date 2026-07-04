@@ -2,14 +2,64 @@
   "_comment": "base = 全リポに常時適用される言語非依存の単位。renovate は管理する extends エントリ（preset 本体は bright-room/renovate-config）、gitignore は managed-block に入るセクション群。mise.toml / .tool-versions / .mise* / .envrc は意図的にコミットするリポがあるため ignore しない。.claude/ は settings.local.json 等の個人ローカル分のみ（rules/skills/settings.json をコミットするリポがある）。",
   "renovate": ["github>bright-room/renovate-config"],
   "gitignore": [
-    { "section_comment": "OS / editor", "ignores": [".DS_Store", "Thumbs.db", ".idea/", ".vscode/"] },
-    { "section_comment": "env", "ignores": [".env", ".env.local", ".env.*.local"] },
+    {
+      "section_comment": "JEtbrains IDEs",
+      "ignores": [
+        ".fleet/",
+        ".idea/",
+        "*.iws",
+        "*.iml",
+        "*.ipr"
+      ]
+    },
+    {
+      "section_comment": "VSCode",
+      "ignores": [
+        ".vscode/"
+      ]
+    },
+    {
+      "section_comment": "OS",
+      "ignores": [
+        ".DS_Store",
+        "**/.DS_Store",
+        "Thumbs.db"
+      ]
+    },
+    {
+      "section_comment": "env",
+      "ignores": [
+        ".env*",
+        "!.env.example"
+      ]
+    },
     {
       "section_comment": "AI agents",
       "ignores": [
         ".claude/settings.local.json",
         ".claude/worktrees/",
         "CLAUDE.local.md"
+      ]
+    },
+    {
+      "section_comment": "Logfiles",
+      "ignores": [
+        "log/*",
+        "!log/.gitkeep"
+      ]
+    },
+    {
+      "section_comment": "Tempfiles",
+      "ignores": [
+        ".tmp/",
+        "tmp/*",
+        "!tmp/.gitkeep"
+      ]
+    },
+    {
+      "section_comment": "Misc",
+      "ignores": [
+        "HELP.md"
       ]
     }
   ]

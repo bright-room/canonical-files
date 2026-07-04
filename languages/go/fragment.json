@@ -2,6 +2,12 @@
   "_comment": "Go のビルド成果物名はリポ固有（bin/ や実行ファイル名）になりがちなので、言語共通はテストカバレッジと Windows クロスコンパイル成果物のみに絞る。",
   "renovate": ["github>bright-room/renovate-config:go"],
   "gitignore": [
-    { "section_comment": "go", "ignores": ["coverage.out", "*.exe"] }
+    {
+      "section_comment": "go",
+      "ignores": [
+        "coverage.out",
+        "*.exe"
+      ]
+    }
   ]
 }

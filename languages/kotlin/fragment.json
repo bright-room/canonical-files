@@ -2,7 +2,19 @@
   "_comment": ".editorconfig は各リポが ktlint ルールをリポ固有に設定しているため配布しない（replace で上書き事故になる）。gradle セクションは java と同一文字列（両宣言時に dedup）。kotlin preset は renovate-config 側で group:kotlinMonorepo / group:springBoot を内包。",
   "renovate": ["github>bright-room/renovate-config:kotlin"],
   "gitignore": [
-    { "section_comment": "gradle", "ignores": [".gradle/", "build/", "*.iml"] },
-    { "section_comment": "kotlin", "ignores": [".kotlin/"] }
+    {
+      "section_comment": "gradle",
+      "ignores": [
+        ".gradle/",
+        "build/",
+        "local.properties"
+      ]
+    },
+    {
+      "section_comment": "kotlin",
+      "ignores": [
+        ".kotlin/"
+      ]
+    }
   ]
 }

@@ -4,7 +4,13 @@
   "gitignore": [
     {
       "section_comment": "node / typescript",
-      "ignores": ["node_modules/", "dist/", "coverage/", "*.tsbuildinfo", "*.log"]
+      "ignores": [
+        "node_modules/",
+        "dist/",
+        "coverage/",
+        "*.tsbuildinfo",
+        "*.log"
+      ]
     }
   ]
 }
