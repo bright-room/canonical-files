@@ -1,0 +1,30 @@
+name: validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: canonical
+      # 検証エンジン(public)。fanout validate の実体は repository-fanout の CLI
+      - uses: actions/checkout@v6
+        with:
+          repository: bright-room/repository-fanout
+          path: engine
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: enable pnpm
+        run: corepack enable
+      - name: install engine deps
+        working-directory: engine
+        run: pnpm install --frozen-lockfile
+      - name: validate canonical tree
+        working-directory: engine
+        run: pnpm --filter cli run validate -- --dir "${GITHUB_WORKSPACE}/canonical"
