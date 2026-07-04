@@ -42,7 +42,7 @@ canonical-files/
 {
   "renovate": ["github>bright-room/renovate-config:<lang>"],
   "gitignore": [
-    { "section_comment": "見出し（# は自動付与）", "ignores": ["パターン", "..."] }
+    { "section_comment": "見出し（`### 見出し ###` 形式で描画される）", "ignores": ["パターン", "..."] }
   ]
 }
 ```
