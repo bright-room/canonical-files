@@ -1,0 +1,28 @@
+name: fanout-sync
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # 手動の global 再実行(runbook 用)
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  kick:
+    runs-on: ubuntu-latest
+    steps:
+      - name: global kick (OIDC)
+        env:
+          FANOUT_URL: https://repository-fanout.bright-room.workers.dev
+        run: |
+          set -eu
+          TOKEN=$(curl -sS -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=${FANOUT_URL}" | jq -r .value)
+          for i in 1 2 3; do
+            code=$(curl -sS -o /tmp/resp -w '%{http_code}' -X POST "${FANOUT_URL}/sync" \
+              -H "Authorization: Bearer ${TOKEN}" -d '{}')
+            if [ "$code" = "202" ]; then cat /tmp/resp; exit 0; fi
+            echo "attempt ${i}: HTTP ${code} $(cat /tmp/resp)"
+            sleep $((i * 5))
+          done
+          echo "kick failed after 3 attempts" >&2
+          exit 1
