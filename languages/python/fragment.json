@@ -3,7 +3,14 @@
   "gitignore": [
     {
       "section_comment": "python",
-      "ignores": ["__pycache__/", ".venv/", ".pytest_cache/", ".ruff_cache/", ".coverage", "*.egg-info/"]
+      "ignores": [
+        "__pycache__/",
+        ".venv/",
+        ".pytest_cache/",
+        ".ruff_cache/",
+        ".coverage",
+        "*.egg-info/"
+      ]
     }
   ]
 }

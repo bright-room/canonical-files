@@ -2,6 +2,11 @@
   "_comment": "Cargo.lock は全リポでコミット運用（バイナリ配布のため必須）なので ignore してはいけない。target/ は非アンカーなので Tauri の src-tauri/target もカバーする。",
   "renovate": ["github>bright-room/renovate-config:rust"],
   "gitignore": [
-    { "section_comment": "rust", "ignores": ["target/"] }
+    {
+      "section_comment": "rust",
+      "ignores": [
+        "target/"
+      ]
+    }
   ]
 }
