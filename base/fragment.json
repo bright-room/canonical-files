@@ -3,7 +3,7 @@
   "renovate": ["github>bright-room/renovate-config"],
   "gitignore": [
     {
-      "section_comment": "JEtbrains IDEs",
+      "section_comment": "JetBrains IDEs",
       "ignores": [
         ".fleet/",
         ".idea/",
