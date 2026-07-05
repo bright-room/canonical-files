@@ -2,65 +2,66 @@
 
 repository-fanout が各リポジトリへ配布する共通ファイルの**正本**。
 worker の `TEMPLATES_REPO` 変数(`bright-room/canonical-files`)からこのリポのルートが読まれる。
+エンジン本体は [bright-room/repository-fanout](https://github.com/bright-room/repository-fanout)。
 
 ## 構成
 
 ```
 canonical-files/
-├── strategies.json          # 配布先パス→戦略の map（必須。不在/不正だと fanout が fail fast）
-├── base/                    # 全リポに常時適用される言語非依存の単位
-│   ├── fragment.json        #   非ファイル貢献（renovate extends / gitignore セクション）
-│   └── files/               #   配布ファイル（renovate.json / .gitignore / CODEOWNERS / release.yml）
-├── languages/<lang>/        # リポが languages に宣言した時だけ適用
-│   ├── fragment.json        #   その言語の貢献宣言
-│   └── files/               #   （任意）言語別の配布ファイル
-├── bundles/<name>/          # リポが bundles に宣言した時だけ適用（言語と独立な opt-in 束）
-│   └── ...                  #   構造・マージ意味論は languages と同一（違いは分類のみ）
-└── seeds/                   # create-only（無ければ配置、あれば触らない）。当面なし
+├── catalog.json             # 全管理ファイルの唯一の宣言。ここに無いパスへの寄与はエラー
+├── profiles/<name>/         # profile ごとの寄与データ（旧 base/languages/bundles を統一）
+│   └── contributes.json
+└── templates/                # 全ファイルの本文（Liquid）
+    └── *.liquid
 ```
 
-言語: `typescript` / `terraform` / `java` / `kotlin` / `go` / `python` / `rust`
-束: `oss`（公開リポ向け定型ドキュメント CONTRIBUTING.md / SECURITY.md）
+### catalog.json
 
-## sync 戦略
+配布対象の全パスをここで宣言する。1 パスにつき:
 
-| 戦略 | 対象 | 反映方法 |
-|---|---|---|
-| replace | 既定（`release.yml`、`.editorconfig` 等） | ファイル全体を収束 |
-| create-only | `seeds/**` | 無ければ配置、あれば触らない |
-| managed-block | `.gitignore`、`.github/CODEOWNERS` | ブロック内だけ更新（リポ独自ルールはブロック外に温存） |
-| extends-field | `renovate.json` | `extends` の管理エントリだけ更新（他キーは不可侵） |
+- `file_type` — `text` / `json` / `yaml` / `markdown` など
+- `mode` — `replaced`（ファイル全体を収束）/ `create-only`（無ければ配置、あれば触らない）/ `managed`（構造化マージ。`managed_paths` でキー単位のマージ方法を指定)
 
-パス→戦略の割り当てはルートの **`strategies.json`** で宣言する（値は `extends-field` / `managed-block` のみ。未登録パスは replace、`seeds/**` は create-only）。
+**catalog.json に無いパスへの寄与はエラーになる。**
 
-`{{gitignore}}` / `{{renovate_extends}}` / `{{codeowner}}` は fanout が描画するプレースホルダ。
-このリポ自身には配布しない（`base/files/**` はテンプレとして扱う）。
+### profiles/\<name\>/contributes.json
 
-## fragment.json
+`base` / 各言語(`typescript` / `terraform` / `java` / `kotlin` / `go` / `python` / `rust`) / `oss`(公開リポ向け定型ドキュメント)がそれぞれ 1 profile。リポが宣言した profile の寄与データが catalog.json のパスごとにマージされる。
 
-```json
-{
-  "renovate": ["github>bright-room/renovate-config:<lang>"],
-  "gitignore": [
-    { "section_comment": "見出し（`### 見出し ###` 形式で描画される）", "ignores": ["パターン", "..."] }
-  ]
-}
-```
+`template` キーはそのファイルの本文テンプレート(`templates/` 配下のファイル名)を指すと同時に、**そのファイルを配布するトリガー**でもある。1 パスにつき、宣言している profile のうち**ちょうど 1 つ**が `template` を持つ必要がある。
 
-- renovate preset の本体は [bright-room/renovate-config](https://github.com/bright-room/renovate-config)（言語名 = preset 名の 1:1）。**python は preset 未整備のため gitignore 貢献のみ**。
-- gitignore セクションは base → 宣言 languages → 宣言 bundles の順に連結され、パターンは横断で dedup（初出優先）。
-- 言語を増やす: renovate-config に同名 preset を用意し `languages/<lang>/fragment.json` を置くだけ。束を増やすのも同様に `bundles/<name>/` を置くだけ。
+### templates/
 
-## 設計ガードレール（2026-07 全リポ実態調査に基づく）
+全ファイルの本文を Liquid テンプレートとして置く。
+
+- `{{ contributions.* }}` — 寄与データ(profiles の contributes.json)をマージした結果
+- `{{ contents.* }}` — 配布先リポ個別の値(tf 側 `fanout.contents`)
+
+## ファイルを追加するには
+
+Worker 側の変更は不要。以下の 3 点だけで完結する。
+
+1. `catalog.json` に配布先パスのエントリを 1 つ追加する
+2. 本文が必要なら `templates/` にテンプレートを 1 枚置く
+3. 配布トリガーにしたい profile の `contributes.json` に該当パスの行を 1 つ追加する(`template` キーで上記テンプレートを指定)
+
+## 検証
+
+PR ごとに CI(repository-fanout の `cli validate`)が catalog の検証と全 profile の描画スモークを実行する。詳細な設計・マージ挙動は repository-fanout の
+`docs/superpowers/specs/2026-07-05-catalog-profiles-design.md` を参照。
+
+## 注意
+
+- `templates/gitignore.liquid` の正準形は repository-fanout の core テスト(`GITIGNORE_LIQUID`)とバイト一致で固定されている。勝手に整形しない。
+- GitHub Actions のワークフローファイルなど `${{ }}` を含むファイルを将来配る場合は、catalog.json 側でそのパスに `raw: true` を指定して Liquid 描画をスキップする。
+
+## 設計ガードレール(2026-07 全リポ実態調査に基づく)
 
 テンプレに**入れてはいけない**もの:
 
-- `.claude/` の丸ごと ignore — `.claude/rules/` `.claude/skills/` `.claude/settings.json` を意図的にコミットするリポが複数ある。個人ローカル分（`settings.local.json` 等）のみ base で ignore する。
-- `Cargo.lock` / `.terraform.lock.hcl` — 全リポでコミット運用（terraform は CI が `-lockfile=readonly` 前提）。
+- `.claude/` の丸ごと ignore — `.claude/rules/` `.claude/skills/` `.claude/settings.json` を意図的にコミットするリポが複数ある。個人ローカル分(`settings.local.json` 等)のみ base で ignore する。
+- `Cargo.lock` / `.terraform.lock.hcl` — 全リポでコミット運用(terraform は CI が `-lockfile=readonly` 前提)。
 - `mise.toml` / `.tool-versions` を捕捉するパターン — ツールバージョンのピン留めとしてコミット運用。
-- `.envrc` — コミット運用のリポがある（direnv 設定は共有物になりうる）。機密の防波堤は `.env` 系で足りる。
-- 汎用 `*.local` — chezmoi の命名規約（dotfiles）と衝突する。env 系は `.env.local` / `.env.*.local` の具体パターンに留める。
+- `.envrc` — コミット運用のリポがある(direnv 設定は共有物になりうる)。機密の防波堤は `.env` 系で足りる。
+- 汎用 `*.local` — chezmoi の命名規約(dotfiles)と衝突する。env 系は `.env.local` / `.env.*.local` の具体パターンに留める。
 - kotlin への `.editorconfig` 配布 — 各リポが ktlint ルールをリポ固有に持つため replace で壊れる。
-
-詳細な設計・マージ挙動は repository-fanout の
-`docs/superpowers/specs/2026-06-26-repository-fanout-design.md` と `docs/superpowers/specs/sample/` を参照。
