@@ -41,6 +41,22 @@
     "LICENSE": {
       "file_type": "text",
       "mode": "create-only"
+    },
+    ".github/pull_request_template.md": {
+      "file_type": "markdown",
+      "mode": "replaced"
+    },
+    ".github/ISSUE_TEMPLATE/bug_report.yaml": {
+      "file_type": "yaml",
+      "mode": "replaced"
+    },
+    ".github/ISSUE_TEMPLATE/feature_request.yaml": {
+      "file_type": "yaml",
+      "mode": "replaced"
+    },
+    ".github/ISSUE_TEMPLATE/config.yml": {
+      "file_type": "yaml",
+      "mode": "replaced"
     }
   }
 }

@@ -75,5 +75,17 @@
   },
   ".github/release.yaml": {
     "template": "release.yaml.liquid"
+  },
+  ".github/pull_request_template.md": {
+    "template": "pull-request-template.liquid"
+  },
+  ".github/ISSUE_TEMPLATE/bug_report.yaml": {
+    "template": "issue-bug-report.liquid"
+  },
+  ".github/ISSUE_TEMPLATE/feature_request.yaml": {
+    "template": "issue-feature-request.liquid"
+  },
+  ".github/ISSUE_TEMPLATE/config.yml": {
+    "template": "issue-config.liquid"
   }
 }
