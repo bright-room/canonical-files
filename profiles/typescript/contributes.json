@@ -1,10 +1,10 @@
 {
-  "_comment": "coverage/ は Vitest 利用リポ(4リポ中3リポ)で必ず生成されるのに全リポで ignore 漏れだったため追加。*.log は全 TS リポで .log のコミット実績ゼロを確認済み。ロックファイル方針(pnpm 強制等)はリポ毎のポリシーなので入れない。mise の tools は node のみ管理(宣言済み全 TS リポの現行値 24 を正本化。npm:* 系ツールはリポ固有なので管理しない)。",
+  "_comment": "coverage/ は Vitest 利用リポ(4リポ中3リポ)で必ず生成されるのに全リポで ignore 漏れだったため追加。*.log は全 TS リポで .log のコミット実績ゼロを確認済み。ロックファイル方針(pnpm 強制等)はリポ毎のポリシーなので入れない。mise.toml は create-only(初回のみ配布。以後の更新は各リポの Renovate に委ねる)。初期値の node はこのリポの Renovate が追従する。",
   ".gitignore": {
     "sections": [
       { "comment": "node / typescript", "ignores": ["node_modules/", "dist/", "coverage/", "*.tsbuildinfo", "*.log"] }
     ]
   },
   "renovate.json": { "extends": ["github>bright-room/renovate-config:typescript"] },
-  "mise.toml": { "tools": { "node": "24" } }
+  "mise.toml": { "template": "mise.toml.liquid", "tools": { "node": "24" } }
 }

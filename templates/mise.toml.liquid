@@ -1,0 +1,3 @@
+[tools]
+{% for tool in contributions.tools %}{% if tool[0] contains ":" %}"{{ tool[0] }}"{% else %}{{ tool[0] }}{% endif %} = "{{ tool[1] }}"
+{% endfor %}
