@@ -1,0 +1,9 @@
+{
+  "_comment": ".terraform.lock.hcl は全リポでコミット必須(CI が terraform init -lockfile=readonly 前提)のため ignore してはいけない。*.tfvars と override.tf 系は全5リポでコミット実績ゼロを確認済み。",
+  ".gitignore": {
+    "sections": [
+      { "comment": "terraform", "ignores": [".terraform/", "*.tfstate", "*.tfstate.*", "*.tfvars", "*.tfvars.json", "crash.log", "crash.*.log", "override.tf", "override.tf.json", "*_override.tf", "*_override.tf.json", ".terraformrc", "terraform.rc"] }
+    ]
+  },
+  "renovate.json": { "extends": ["github>bright-room/renovate-config:terraform"] }
+}
