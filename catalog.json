@@ -38,7 +38,7 @@
       "file_type": "markdown",
       "mode": "replaced"
     },
-    ".github/LICENSE": {
+    "LICENSE": {
       "file_type": "text",
       "mode": "create-only"
     }
