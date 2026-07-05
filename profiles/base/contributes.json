@@ -73,7 +73,7 @@
       "github>bright-room/renovate-config"
     ]
   },
-  ".github/release.yml": {
-    "template": "release.yml.liquid"
+  ".github/release.yaml": {
+    "template": "release.yaml.liquid"
   }
 }
