@@ -8,6 +8,11 @@
       "mode": "managed",
       "managed_paths": { "extends": { "merge": "array" } }
     },
+    "mise.toml": {
+      "file_type": "toml",
+      "mode": "managed",
+      "managed_paths": { "tools": { "merge": "table" } }
+    },
     ".github/release.yml":  { "file_type": "yaml",     "mode": "replaced" },
     "CONTRIBUTING.md":      { "file_type": "markdown", "mode": "replaced" },
     "SECURITY.md":          { "file_type": "markdown", "mode": "replaced" }
