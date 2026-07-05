@@ -1,18 +1,46 @@
 {
   "_comment": "全管理ファイルの唯一の宣言(spec v3 §4.1)。ここに無いパスへの寄与はエラー。本文テンプレートの指定は profiles/*/contributes.json の template キー(= 配布トリガー)。",
   "files": {
-    ".gitignore":         { "file_type": "text", "mode": "managed" },
-    ".github/CODEOWNERS": { "file_type": "text", "mode": "managed" },
+    ".gitignore": {
+      "file_type": "text",
+      "mode": "managed"
+    },
     "renovate.json": {
       "file_type": "json",
       "mode": "managed",
-      "managed_paths": { "extends": { "merge": "array" } }
+      "managed_paths": {
+        "extends": {
+          "merge": "array"
+        }
+      }
     },
-    "mise.toml":            { "file_type": "toml",     "mode": "create-only" },
-    ".github/release.yml":  { "file_type": "yaml",     "mode": "replaced" },
-    "CONTRIBUTING.md":      { "file_type": "markdown", "mode": "create-only" },
-    "SECURITY.md":          { "file_type": "markdown", "mode": "replaced" },
-    "CODE_OF_CONDUCT.md":   { "file_type": "markdown", "mode": "replaced" },
-    "LICENSE":              { "file_type": "text",     "mode": "create-only" }
+    "mise.toml": {
+      "file_type": "toml",
+      "mode": "create-only"
+    },
+    ".github/CODEOWNERS": {
+      "file_type": "text",
+      "mode": "managed"
+    },
+    ".github/release.yaml": {
+      "file_type": "yaml",
+      "mode": "replaced"
+    },
+    ".github/CONTRIBUTING.md": {
+      "file_type": "markdown",
+      "mode": "create-only"
+    },
+    ".github/SECURITY.md": {
+      "file_type": "markdown",
+      "mode": "replaced"
+    },
+    ".github/CODE_OF_CONDUCT.md": {
+      "file_type": "markdown",
+      "mode": "replaced"
+    },
+    ".github/LICENSE": {
+      "file_type": "text",
+      "mode": "create-only"
+    }
   }
 }

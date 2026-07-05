@@ -3,17 +3,77 @@
   ".gitignore": {
     "template": "gitignore.liquid",
     "sections": [
-      { "comment": "JetBrains IDEs", "ignores": [".fleet/", ".idea/", "*.iws", "*.iml", "*.ipr"] },
-      { "comment": "VSCode", "ignores": [".vscode/"] },
-      { "comment": "OS", "ignores": [".DS_Store", "**/.DS_Store", "Thumbs.db"] },
-      { "comment": "env", "ignores": [".env*", "!.env.example"] },
-      { "comment": "AI agents", "ignores": [".claude/settings.local.json", ".claude/worktrees/", "CLAUDE.local.md"] },
-      { "comment": "Logfiles", "ignores": ["log/*", "!log/.gitkeep"] },
-      { "comment": "Tempfiles", "ignores": [".tmp/", "tmp/*", "!tmp/.gitkeep"] },
-      { "comment": "Misc", "ignores": ["HELP.md"] }
+      {
+        "comment": "JetBrains IDEs",
+        "ignores": [
+          ".fleet/",
+          ".idea/",
+          "*.iws",
+          "*.iml",
+          "*.ipr"
+        ]
+      },
+      {
+        "comment": "VSCode",
+        "ignores": [
+          ".vscode/"
+        ]
+      },
+      {
+        "comment": "OS",
+        "ignores": [
+          ".DS_Store",
+          "**/.DS_Store",
+          "Thumbs.db"
+        ]
+      },
+      {
+        "comment": "env",
+        "ignores": [
+          ".env*",
+          "!.env.example"
+        ]
+      },
+      {
+        "comment": "AI agents",
+        "ignores": [
+          ".claude/settings.local.json",
+          ".claude/worktrees/",
+          "CLAUDE.local.md"
+        ]
+      },
+      {
+        "comment": "Logfiles",
+        "ignores": [
+          "log/*",
+          "!log/.gitkeep"
+        ]
+      },
+      {
+        "comment": "Tempfiles",
+        "ignores": [
+          ".tmp/",
+          "tmp/*",
+          "!tmp/.gitkeep"
+        ]
+      },
+      {
+        "comment": "Misc",
+        "ignores": [
+          "HELP.md"
+        ]
+      }
     ]
   },
-  ".github/CODEOWNERS": { "template": "codeowners.liquid" },
-  "renovate.json": { "extends": ["github>bright-room/renovate-config"] },
-  ".github/release.yml": { "template": "release.yml.liquid" }
+  ".github/CODEOWNERS": {
+    "template": "codeowners.liquid"
+  },
+  "renovate.json": {
+    "extends": [
+      "github>bright-room/renovate-config"
+    ]
+  },
+  ".github/release.yml": {
+    "template": "release.yml.liquid"
+  }
 }

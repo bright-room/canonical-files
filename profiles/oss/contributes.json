@@ -1,7 +1,15 @@
 {
   "_comment": "bundles 由来の opt-in profile。公開リポ向けの定型ドキュメントを配るだけで、renovate / gitignore への寄与は無し。",
-  "CONTRIBUTING.md": { "template": "contributing.liquid" },
-  "SECURITY.md": { "template": "security.liquid" },
-  "CODE_OF_CONDUCT.md": { "template": "code-of-conduct.liquid" },
-  "LICENSE": { "template": "license.liquid" }
+  "CONTRIBUTING.md": {
+    "template": "contributing.liquid"
+  },
+  "SECURITY.md": {
+    "template": "security.liquid"
+  },
+  "CODE_OF_CONDUCT.md": {
+    "template": "code-of-conduct.liquid"
+  },
+  "LICENSE": {
+    "template": "license.liquid"
+  }
 }
