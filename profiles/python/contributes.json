@@ -1,0 +1,8 @@
+{
+  "_comment": "renovate-config に python preset が未整備のため renovate.json への寄与は持たない(preset 追加時にこのファイルへ追記する)。パターンは br-cluster の実態(uv + pytest + ruff + hatchling)に基づく。",
+  ".gitignore": {
+    "sections": [
+      { "comment": "python", "ignores": ["__pycache__/", ".venv/", ".pytest_cache/", ".ruff_cache/", ".coverage", "*.egg-info/"] }
+    ]
+  }
+}
