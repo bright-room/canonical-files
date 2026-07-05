@@ -1,12 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>bright-room/renovate-config"],
+  "extends": [
+    "github>bright-room/renovate-config"
+  ],
   "customManagers": [
     {
       "customType": "regex",
       "description": "profiles/*/contributes.json の mise 初期値(node)を追従",
-      "managerFilePatterns": ["/^profiles/[^/]+/contributes\\.json$/"],
-      "matchStrings": ["\"node\": \"(?<currentValue>[^\"]+)\""],
+      "managerFilePatterns": [
+        "/^profiles/[^/]+/contributes\\.json$/"
+      ],
+      "matchStrings": [
+        "\"node\": \"(?<currentValue>[^\"]+)\""
+      ],
       "depNameTemplate": "node",
       "datasourceTemplate": "node-version",
       "versioningTemplate": "node"
@@ -14,8 +20,12 @@
     {
       "customType": "regex",
       "description": "profiles/*/contributes.json の mise 初期値(terraform)を追従",
-      "managerFilePatterns": ["/^profiles/[^/]+/contributes\\.json$/"],
-      "matchStrings": ["\"terraform\": \"(?<currentValue>[^\"]+)\""],
+      "managerFilePatterns": [
+        "/^profiles/[^/]+/contributes\\.json$/"
+      ],
+      "matchStrings": [
+        "\"terraform\": \"(?<currentValue>[^\"]+)\""
+      ],
       "depNameTemplate": "hashicorp/terraform",
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^v(?<version>.+)$"
