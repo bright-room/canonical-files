@@ -10,7 +10,9 @@
     },
     "mise.toml":            { "file_type": "toml",     "mode": "create-only" },
     ".github/release.yml":  { "file_type": "yaml",     "mode": "replaced" },
-    "CONTRIBUTING.md":      { "file_type": "markdown", "mode": "replaced" },
-    "SECURITY.md":          { "file_type": "markdown", "mode": "replaced" }
+    "CONTRIBUTING.md":      { "file_type": "markdown", "mode": "create-only" },
+    "SECURITY.md":          { "file_type": "markdown", "mode": "replaced" },
+    "CODE_OF_CONDUCT.md":   { "file_type": "markdown", "mode": "replaced" },
+    "LICENSE":              { "file_type": "text",     "mode": "create-only" }
   }
 }
