@@ -5,7 +5,8 @@
       {
         "comment": "rust",
         "ignores": [
-          "target/"
+          "target/",
+          "src-tauri/target"
         ]
       }
     ]

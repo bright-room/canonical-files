@@ -11,6 +11,12 @@
           "*.tsbuildinfo",
           "*.log"
         ]
+      },
+      {
+        "comment": "storybook",
+        "ignores": [
+          "storybook-static/"
+        ]
       }
     ]
   },
