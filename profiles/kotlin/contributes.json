@@ -7,7 +7,35 @@
         "ignores": [
           ".gradle/",
           "build/",
+          "!gradle/wrapper/gradle-wrapper.jar",
+          "!**/src/main/**/build/",
+          "!**/src/test/**/build/",
           "local.properties"
+        ]
+      },
+      {
+        "comment": "Eclipse",
+        "ignores": [
+          ".apt_generated",
+          ".classpath",
+          ".factorypath",
+          ".project",
+          ".settings",
+          ".springBeans",
+          ".sts4-cache",
+          "bin/",
+          "!**/src/main/**/bin/",
+          "!**/src/test/**/bin/"
+        ]
+      },
+      {
+        "comment": "NetBeans",
+        "ignores": [
+          "nbproject/private/",
+          "nbbuild/",
+          "dist/",
+          "nbdist/",
+          ".nb-gradle/"
         ]
       },
       {
