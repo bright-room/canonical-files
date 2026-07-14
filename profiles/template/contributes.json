@@ -1,0 +1,15 @@
+{
+  "_comment": "PR/Issue テンプレートの opt-in 配布(spec 2026-07-14 §2.1)。fanout.bundles に \"template\" を宣言したリポにのみ配る。base からの移動(2026-07-14)であり、未宣言リポでは既配布分が retraction される。",
+  ".github/pull_request_template.md": {
+    "template": "pull-request-template.liquid"
+  },
+  ".github/ISSUE_TEMPLATE/bug_report.yaml": {
+    "template": "issue-bug-report.liquid"
+  },
+  ".github/ISSUE_TEMPLATE/feature_request.yaml": {
+    "template": "issue-feature-request.liquid"
+  },
+  ".github/ISSUE_TEMPLATE/config.yml": {
+    "template": "issue-config.liquid"
+  }
+}
