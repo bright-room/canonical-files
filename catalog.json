@@ -57,6 +57,21 @@
     ".github/ISSUE_TEMPLATE/config.yml": {
       "file_type": "yaml",
       "mode": "replaced"
+    },
+    ".github/workflows/security.yml": {
+      "file_type": "yaml",
+      "mode": "replaced",
+      "raw": true
+    },
+    ".pre-commit-config.yaml": {
+      "file_type": "yaml",
+      "mode": "managed",
+      "managed_paths": {
+        "repos": {
+          "merge": "array",
+          "key": "repo"
+        }
+      }
     }
   }
 }
