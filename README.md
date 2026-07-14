@@ -58,6 +58,20 @@ PR ごとに CI(repository-fanout の `cli validate`)が catalog の検証と全
 - `.pre-commit-config.yaml` の repos に `repo: "local"` を入れない(managed の識別キーが repo のため、配布先リポ自身の local hook を潰す)。lint/fmt 系 hook も入れない(セキュリティ専用。言語・時期でツールが変わりメンテ負荷になる)。
 - policy 検査のルール本体は [bright-room/repo-policies](https://github.com/bright-room/repo-policies) にある。ルール追加・変更はあちらだけで完結する(fanout の再配布不要)。
 
+## security.yml が fail した時の triage(2026-07-14 初回ロールアウトの判定基準)
+
+配布した security.yml の fail は「配布物の欠陥」ではなく「そのリポの検出」であることがほとんど。
+ジョブ別の対処は以下を踏襲する。**配布ファイル(security*.yml / .pre-commit-config.yaml の管理部分)を
+リポ側で編集して黙らせない**こと(次回同期で差し戻される。直すならテンプレート=本リポ)。
+
+| ジョブ | よくある原因 | 対処 |
+|---|---|---|
+| `workflow-audit` | そのリポの**既存** workflow への zizmor 指摘(template injection、permissions 未宣言、persist-credentials 等) | リポの workflow を修正する。指摘は実害のあるものが多い(auto-fix があるものも) |
+| `sca` | 依存の既知脆弱性(go.mod の stdlib 含む、kotlin-js-store/yarn.lock 等の間接 lockfile も対象) | 依存を更新する。誤検知・受容はリポ直下の `osv-scanner.toml` の ignore(理由コメント必須) |
+| `secrets` | **全履歴**スキャンのため、過去コミットの例示キー・プロトコル定数(Sec-WebSocket-Key 等)を拾う | 本物なら鍵ローテーション。誤検知はリポ直下 `.gitleaksignore` に **fingerprint 単位**で追加(パス・ルール単位の除外は広すぎるので禁止) |
+| `hidden-unicode` | 絵文字の U+FE0F(異体字セレクタ)が代表的な誤検知。bidi・ゼロ幅は本物の可能性 | 「見つけたら削除」ではなく人手確認。コード内の絵文字は原則テキストへ置換(検査の単純さ優先)。bidi/ゼロ幅/タグ文字は混入経路を調査 |
+| `policy` | conftest の deny(pnpm 強制、lockfile 必須等) | deny メッセージの指示どおりリポ設定を直す。ルール自体の変更は repo-policies へ |
+
 ## 設計ガードレール(2026-07 全リポ実態調査に基づく)
 
 テンプレに**入れてはいけない**もの:
