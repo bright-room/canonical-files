@@ -53,6 +53,38 @@
       ],
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の gitleaks docker タグを追従",
+      "managerFilePatterns": ["/^templates/.*\\.liquid$/"],
+      "matchStrings": ["ghcr\\.io/gitleaks/gitleaks:(?<currentValue>v[\\d.]+)"],
+      "depNameTemplate": "ghcr.io/gitleaks/gitleaks",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の conftest docker タグを追従",
+      "managerFilePatterns": ["/^templates/.*\\.liquid$/"],
+      "matchStrings": ["openpolicyagent/conftest:(?<currentValue>v[\\d.]+)"],
+      "depNameTemplate": "openpolicyagent/conftest",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の zizmor バージョンを追従",
+      "managerFilePatterns": ["/^templates/.*\\.liquid$/"],
+      "matchStrings": ["zizmor==(?<currentValue>[\\d.]+)"],
+      "depNameTemplate": "zizmor",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の anti-trojan-source バージョンを追従",
+      "managerFilePatterns": ["/^templates/.*\\.liquid$/"],
+      "matchStrings": ["anti-trojan-source@(?<currentValue>[\\d.]+)"],
+      "depNameTemplate": "anti-trojan-source",
+      "datasourceTemplate": "npm"
     }
   ]
 }

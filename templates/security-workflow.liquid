@@ -33,10 +33,18 @@ jobs:
         run: |
           npx --yes anti-trojan-source@1.12.0 --verbose \
             --files='**/*.{go,java,kt,kts,rs,ts,tsx,js,jsx,mjs,cjs,py,rb,php,c,h,cpp,sh,tf,toml,yml,yaml,json,md}'
+          npx --yes anti-trojan-source@1.12.0 --verbose \
+            --files='.github/**/*.{yml,yaml,md,json}'
       - name: scan AI rules files
         run: |
           npx --yes anti-trojan-source@1.12.0 --verbose \
             --files='**/{CLAUDE.md,AGENTS.md,.cursorrules,.clinerules,.windsurfrules,*.mdc,copilot-instructions.md}'
+          npx --yes anti-trojan-source@1.12.0 --verbose \
+            --files='.github/copilot-instructions.md'
+          npx --yes anti-trojan-source@1.12.0 --verbose \
+            --files='.cursor/rules/*.mdc'
+          npx --yes anti-trojan-source@1.12.0 --verbose \
+            --files='.claude/**/*.md'
 
   # シークレット検知(全履歴)
   secrets:
@@ -66,6 +74,7 @@ jobs:
         with:
           scan-args: |-
             --recursive
+            --include-git-root
             ./
 
   # workflow YAML 自体の静的解析(オフライン。findings で exit 非ゼロ)
