@@ -1,0 +1,29 @@
+name: security-rust
+
+# fanout 配布(rust profile)。層2: cargo-deny(advisories / bans / sources)。
+# OSV との差分は sources(取得元レジストリ許可制)・bans・yanked 検知。
+# 設定はリポ直下の deny.toml(fanout が create-only で初期配置、以後リポ所有)。
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  cargo-deny:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: EmbarkStudios/cargo-deny-action@3c6349835b2b7b196a839186cb8b78e02f7b5f25 # v2.1.1
+        with:
+          command: check advisories bans sources

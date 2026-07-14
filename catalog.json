@@ -72,6 +72,20 @@
           "key": "repo"
         }
       }
+    },
+    ".github/workflows/security-jvm.yml": {
+      "file_type": "yaml",
+      "mode": "replaced",
+      "raw": true
+    },
+    ".github/workflows/security-rust.yml": {
+      "file_type": "yaml",
+      "mode": "replaced",
+      "raw": true
+    },
+    "deny.toml": {
+      "file_type": "toml",
+      "mode": "create-only"
     }
   }
 }

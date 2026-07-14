@@ -1,0 +1,12 @@
+# cargo-deny 設定。fanout(canonical-files)が create-only で初期配置したもので、以後はリポ所有。
+# 参考: https://embarkstudios.github.io/cargo-deny/
+
+[advisories]
+yanked = "deny"
+
+[bans]
+multiple-versions = "warn"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"

@@ -15,5 +15,11 @@
     "extends": [
       "github>bright-room/renovate-config:rust"
     ]
+  },
+  ".github/workflows/security-rust.yml": {
+    "template": "security-rust-workflow.liquid"
+  },
+  "deny.toml": {
+    "template": "deny.toml.liquid"
   }
 }
