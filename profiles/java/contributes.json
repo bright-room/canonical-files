@@ -44,5 +44,8 @@
     "extends": [
       "github>bright-room/renovate-config:java"
     ]
+  },
+  ".github/workflows/security-jvm.yml": {
+    "template": "security-jvm-workflow.liquid"
   }
 }

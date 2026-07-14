@@ -57,6 +57,35 @@
     ".github/ISSUE_TEMPLATE/config.yml": {
       "file_type": "yaml",
       "mode": "replaced"
+    },
+    ".github/workflows/security.yml": {
+      "file_type": "yaml",
+      "mode": "replaced",
+      "raw": true
+    },
+    ".pre-commit-config.yaml": {
+      "file_type": "yaml",
+      "mode": "managed",
+      "managed_paths": {
+        "repos": {
+          "merge": "array",
+          "key": "repo"
+        }
+      }
+    },
+    ".github/workflows/security-jvm.yml": {
+      "file_type": "yaml",
+      "mode": "replaced",
+      "raw": true
+    },
+    ".github/workflows/security-rust.yml": {
+      "file_type": "yaml",
+      "mode": "replaced",
+      "raw": true
+    },
+    "deny.toml": {
+      "file_type": "toml",
+      "mode": "create-only"
     }
   }
 }

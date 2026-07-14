@@ -26,7 +26,7 @@ canonical-files/
 
 ### profiles/\<name\>/contributes.json
 
-`base` / 各言語(`typescript` / `terraform` / `java` / `kotlin` / `go` / `python` / `rust`) / `oss`(公開リポ向け定型ドキュメント)がそれぞれ 1 profile。リポが宣言した profile の寄与データが catalog.json のパスごとにマージされる。
+`base` / 各言語(`typescript` / `terraform` / `java` / `kotlin` / `go` / `python` / `rust`) / `oss`(公開リポ向け定型ドキュメント) / `template`(PR/Issue テンプレの opt-in 配布)がそれぞれ 1 profile。リポが宣言した profile の寄与データが catalog.json のパスごとにマージされる。
 
 `template` キーはそのファイルの本文テンプレート(`templates/` 配下のファイル名)を指すと同時に、**そのファイルを配布するトリガー**でもある。1 パスにつき、宣言している profile のうち**ちょうど 1 つ**が `template` を持つ必要がある。
 
@@ -54,6 +54,9 @@ PR ごとに CI(repository-fanout の `cli validate`)が catalog の検証と全
 
 - `templates/gitignore.liquid` の正準形は repository-fanout の core テスト(`GITIGNORE_LIQUID`)とバイト一致で固定されている。勝手に整形しない。
 - GitHub Actions のワークフローファイルなど `${{ }}` を含むファイルを将来配る場合は、catalog.json 側でそのパスに `raw: true` を指定して Liquid 描画をスキップする。
+- `.github/workflows/security*.yml` は `raw: true` で Liquid 描画をスキップして配布している。action は digest ピンで書き、更新は本リポの renovate customManager が行う(配布先の renovate は renovate-config の ignorePaths で本ファイルを対象外にしている)。
+- `.pre-commit-config.yaml` の repos に `repo: "local"` を入れない(managed の識別キーが repo のため、配布先リポ自身の local hook を潰す)。lint/fmt 系 hook も入れない(セキュリティ専用。言語・時期でツールが変わりメンテ負荷になる)。
+- policy 検査のルール本体は [bright-room/repo-policies](https://github.com/bright-room/repo-policies) にある。ルール追加・変更はあちらだけで完結する(fanout の再配布不要)。
 
 ## 設計ガードレール(2026-07 全リポ実態調査に基づく)
 

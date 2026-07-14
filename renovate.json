@@ -29,6 +29,62 @@
       "depNameTemplate": "hashicorp/terraform",
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の GitHub Actions digest ピン(uses: owner/repo@sha # vX.Y.Z)を追従",
+      "managerFilePatterns": [
+        "/^templates/.*\\.liquid$/"
+      ],
+      "matchStrings": [
+        "uses:\\s+(?<depName>[\\w.-]+/[\\w.-]+)(?:/[\\w./-]+)?@(?<currentDigest>[a-f0-9]{40})\\s+#\\s*(?<currentValue>v?[\\d.]+)"
+      ],
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "description": "profiles/base/contributes.json の pre-commit rev を追従",
+      "managerFilePatterns": [
+        "/^profiles/base/contributes\\.json$/"
+      ],
+      "matchStrings": [
+        "\"repo\":\\s*\"https://github.com/(?<depName>[^\"]+)\"[^}]*?\"rev\":\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の gitleaks docker タグを追従",
+      "managerFilePatterns": ["/^templates/.*\\.liquid$/"],
+      "matchStrings": ["ghcr\\.io/gitleaks/gitleaks:(?<currentValue>v[\\d.]+)"],
+      "depNameTemplate": "ghcr.io/gitleaks/gitleaks",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の conftest docker タグを追従",
+      "managerFilePatterns": ["/^templates/.*\\.liquid$/"],
+      "matchStrings": ["openpolicyagent/conftest:(?<currentValue>v[\\d.]+)"],
+      "depNameTemplate": "openpolicyagent/conftest",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の zizmor バージョンを追従",
+      "managerFilePatterns": ["/^templates/.*\\.liquid$/"],
+      "matchStrings": ["zizmor==(?<currentValue>[\\d.]+)"],
+      "depNameTemplate": "zizmor",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "customType": "regex",
+      "description": "templates/*.liquid 内の anti-trojan-source バージョンを追従",
+      "managerFilePatterns": ["/^templates/.*\\.liquid$/"],
+      "matchStrings": ["anti-trojan-source@(?<currentValue>[\\d.]+)"],
+      "depNameTemplate": "anti-trojan-source",
+      "datasourceTemplate": "npm"
     }
   ]
 }

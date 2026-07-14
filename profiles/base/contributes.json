@@ -1,5 +1,5 @@
 {
-  "_comment": "base = 全リポに常時適用される言語非依存の単位。renovate は管理する extends エントリ(preset 本体は bright-room/renovate-config)、gitignore は managed-block に入るセクション群。mise.toml / .tool-versions / .mise* / .envrc は意図的にコミットするリポがあるため ignore しない。.claude/ は settings.local.json 等の個人ローカル分のみ(rules/skills/settings.json をコミットするリポがある)。",
+  "_comment": "base = 全リポに常時適用される言語非依存の単位。renovate は管理する extends エントリ(preset 本体は bright-room/renovate-config)、gitignore は managed-block に入るセクション群。mise.toml / .tool-versions / .mise* / .envrc は意図的にコミットするリポがあるため ignore しない。.claude/ は settings.local.json 等の個人ローカル分のみ(rules/skills/settings.json をコミットするリポがある)。.pre-commit-config.yaml の repos に repo: \"local\" を入れない(識別キーが repo のため、配布先リポ自身の local hook を潰す)。lint/fmt 系 hook も入れない(セキュリティ専用)。",
   ".gitignore": {
     "template": "gitignore.liquid",
     "sections": [
@@ -81,16 +81,21 @@
   ".github/release.yaml": {
     "template": "release.yaml.liquid"
   },
-  ".github/pull_request_template.md": {
-    "template": "pull-request-template.liquid"
+  ".github/workflows/security.yml": {
+    "template": "security-workflow.liquid"
   },
-  ".github/ISSUE_TEMPLATE/bug_report.yaml": {
-    "template": "issue-bug-report.liquid"
-  },
-  ".github/ISSUE_TEMPLATE/feature_request.yaml": {
-    "template": "issue-feature-request.liquid"
-  },
-  ".github/ISSUE_TEMPLATE/config.yml": {
-    "template": "issue-config.liquid"
+  ".pre-commit-config.yaml": {
+    "repos": [
+      {
+        "repo": "https://github.com/gitleaks/gitleaks",
+        "rev": "v8.30.1",
+        "hooks": [{ "id": "gitleaks" }]
+      },
+      {
+        "repo": "https://github.com/sirosen/texthooks",
+        "rev": "0.7.1",
+        "hooks": [{ "id": "forbid-bidi-controls" }]
+      }
+    ]
   }
 }
