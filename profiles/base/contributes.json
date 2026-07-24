@@ -1,5 +1,5 @@
 {
-  "_comment": "base = 全リポに常時適用される言語非依存の単位。renovate は管理する extends エントリ(preset 本体は bright-room/renovate-config)、gitignore は managed-block に入るセクション群。mise.toml / .tool-versions / .mise* / .envrc は意図的にコミットするリポがあるため ignore しない。.claude/ は settings.local.json 等の個人ローカル分のみ(rules/skills/settings.json をコミットするリポがある)。.pre-commit-config.yaml の repos に repo: \"local\" を入れない(識別キーが repo のため、配布先リポ自身の local hook を潰す)。lint/fmt 系 hook も入れない(セキュリティ専用)。",
+  "_comment": "base = 全リポに常時適用される言語非依存の単位。renovate は管理する extends エントリ(preset 本体は bright-room/renovate-config)、gitignore は managed-block に入るセクション群。mise.toml / .tool-versions / .mise* / .envrc は意図的にコミットするリポがあるため ignore しない。.claude/ は settings.local.json 等の個人ローカル分のみ(rules/skills/settings.json をコミットするリポがある)。.pre-commit-config.yaml の repos に repo: \"local\" を入れない(識別キーが repo のため、配布先リポ自身の local hook を潰す)。lint/fmt 系 hook も入れない(セキュリティ専用)。.config/mise/conf.d/pre-commit.toml は pre-commit install 漏れ防止の enter hook(mise は conf.d を mise.toml とマージ読みする。mise.toml 本体は言語 profile が create-only 配布=リポ所有のため触らない)。",
   ".gitignore": {
     "template": "gitignore.liquid",
     "sections": [
@@ -97,5 +97,8 @@
         "hooks": [{ "id": "forbid-bidi-controls" }]
       }
     ]
+  },
+  ".config/mise/conf.d/pre-commit.toml": {
+    "template": "mise-precommit-hook.toml.liquid"
   }
 }
