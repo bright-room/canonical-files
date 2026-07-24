@@ -86,6 +86,11 @@
     "deny.toml": {
       "file_type": "toml",
       "mode": "create-only"
+    },
+    ".config/mise/conf.d/pre-commit.toml": {
+      "file_type": "toml",
+      "mode": "replaced",
+      "raw": true
     }
   }
 }
