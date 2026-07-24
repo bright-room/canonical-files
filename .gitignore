@@ -40,9 +40,6 @@ tmp/*
 ### Misc ###
 HELP.md
 # <<< repository-fanout managed <<<
-# OS / editor
-
-# AI agents
 
 # ローカル作業ファイル
 .repository-list.txt
